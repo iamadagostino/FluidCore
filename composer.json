@@ -1,0 +1,14 @@
+{
+    "name": "dotzerolab/fluidcore",
+    "description": "A simple PHP framework for building web applications.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Angelo D'Agostino",
+            "email": "angelo.dagostino@dotzerolab.com"
+        }
+    ],
+    "minimum-stability": "alpha",
+    "require": {}
+}
