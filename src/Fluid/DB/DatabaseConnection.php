@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Fluid\DB;
 
 use PDO;
-use PDOException;
+use Exception;
 use Fluid\DB\Exception\DatabaseConnectionException;
 
 class DatabaseConnection implements DatabaseConnectionInterface
@@ -49,7 +49,7 @@ class DatabaseConnection implements DatabaseConnectionInterface
                 $this->credentials['password'],
                 $params
             );
-        } catch (PDOException $exception) {
+        } catch (Exception $exception) {
             throw new DatabaseConnectionException($exception->getMessage(), (int)$exception->getCode);
         }
         
