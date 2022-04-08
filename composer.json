@@ -1,14 +1,45 @@
 {
     "name": "dotzerolab/fluidcore",
     "description": "A simple PHP framework for building web applications.",
+    "keywords": [
+        "framework",
+        "php",
+        "fluidcore"
+    ],
     "type": "library",
     "license": "MIT",
+    "readme": "",
+    "time": "",
+    "support": {
+        "isssues": "https://github.com/iamadagostino/FluidCore/issues",
+        "source": "https://github.com/iamadagostino/FluidCore",
+        "wiki": "https://github.com/iamadagostino/FluidCore/wiki"
+    },
     "authors": [
         {
             "name": "Angelo D'Agostino",
-            "email": "angelo.dagostino@dotzerolab.com"
+            "email": "angelo.dagostino@dotzerolab.com",
+            "role": "Developer"
         }
     ],
     "minimum-stability": "alpha",
-    "require": {}
+    "require": {
+        "php": "7.4.27|^8.1",
+        "ext-mbstring": "*",
+        "ext-iconv": "*",
+        "ext-pdo": "*",
+        "ext-json": "*",
+        "ext-curl": "*",
+        "ext-simplexml": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Fluid\\": "src/Fluid/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Fluid\\Tests\\": "tests/"
+        }
+    }
 }
