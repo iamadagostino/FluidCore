@@ -10,14 +10,34 @@ use Fluid\LiquidORM\QueryBuilder\QueryBuilder;
 
 class CRUD implements CRUDInterface
 {
+    /**
+     * @var DataMapper
+     */
     protected DataMapper $dataMapper;
 
+    /**
+     * @var QueryBuilder
+     */
     protected QueryBuilder $queryBuilder;
 
+    /**
+     * @var string
+     */
     protected string $tableSchema;
 
+    /**
+     * @var string
+     */
     protected string $tableSchemaID;
 
+    /**
+     * Main constructor method
+     *
+     * @param DataMapper $dataMapper
+     * @param QueryBuilder $queryBuilder
+     * @param string $tableSchema
+     * @param string $tableSchemaID
+     */
     public function __construct(
         DataMapper $dataMapper,
         QueryBuilder $queryBuilder,
@@ -30,21 +50,44 @@ class CRUD implements CRUDInterface
         $this->tableSchemaID = $tableSchemaID;
     }
 
+    /**
+     * @inheritDoc
+     *
+     * @return string
+     */
     public function getSchema(): string
     {
         return $this->tableSchema;
     }
 
+    /**
+     * @inheritDoc
+     *
+     * @return string
+     */
     public function getSchemaID() : string
     {
         return $this->tableSchemaID;
     }
 
+
+    /**
+     * @inheritDoc
+     *
+     * @return integer
+     */
     public function lastID(): int
     {
         return $this->dataMapper->getLastID();
     }
 
+
+    /**
+     * @inheritDoc
+     *
+     * @param array $fields
+     * @return boolean
+     */
     public function create(array $fields = []) : bool
     {
         try {
@@ -64,6 +107,16 @@ class CRUD implements CRUDInterface
         }
     }
 
+
+    /**
+     * @inheritDoc
+     *
+     * @param array $selectors
+     * @param array $conditions
+     * @param array $parameters
+     * @param array $optional
+     * @return array
+     */
     public function read(array $selectors = [], array $conditions = [], array $parameters = [], array $optional = []): array
     {
         try {
@@ -86,6 +139,14 @@ class CRUD implements CRUDInterface
         }
     }
 
+
+    /**
+     * @inheritDoc
+     *
+     * @param string $pk
+     * @param array $fields
+     * @return boolean
+     */
     public function update(string $pk, array $fields = []): bool
     {
         try {
@@ -106,6 +167,12 @@ class CRUD implements CRUDInterface
         }
     }
 
+    /**
+     * @inheritDoc
+     *
+     * @param array $conditions
+     * @return boolean
+     */
     public function delete(array $conditions = []): bool
     {
         try {
@@ -125,6 +192,13 @@ class CRUD implements CRUDInterface
         }
     }
 
+    /**
+     * @inheritDoc
+     *
+     * @param array $selectors
+     * @param array $conditions
+     * @return array
+     */
     public function search(array $selectors, array $conditions = []): array
     {
         try {
@@ -145,7 +219,30 @@ class CRUD implements CRUDInterface
         }
     }
 
-    public function rawQuery(string $rawQuery, ?array $conditions = []): mixed
+
+    /**
+     * @inheritDoc
+     *
+     * @param string $raw
+     * @param array|null $conditions
+     * @return mixed
+     */
+    public function raw(string $raw, ?array $conditions = []): mixed
     {
+        try {
+            $args = [
+                'table' => $this->getSchema(),
+                'type' => 'raw',
+                'raw'=> $raw,
+                'conditions' => $conditions
+            ];
+            $query = $this->queryBuilder->buildQuery($args)->rawQuery();
+            $this->dataMapper->persist($query, $this->dataMapper->buildQueryParameters($conditions));
+
+            if ($this->dataMapper->rowsCount()) {
+            }
+        } catch (Throwable $throwable) {
+            throw $throwable;
+        }
     }
 }

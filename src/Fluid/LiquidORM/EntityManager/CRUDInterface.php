@@ -31,7 +31,6 @@ interface CRUDInterface
      * Create method which inserts data within a storage table
      *
      * @param array $fields
-     *
      * @return bool
      */
     public function create(array $fields = []) : bool;
@@ -39,11 +38,10 @@ interface CRUDInterface
     /**
      * Returns an array of DB's rows based on the individual supplied arguments
      *
-     * @param array $selectors = []
-     * @param array $paramenters = []
-     * @param array $conditions = []
-     * @param array $optional = []
-     *
+     * @param array $selectors
+     * @param array $paramenters
+     * @param array $conditions
+     * @param array $optional
      * @return array
      */
     public function read(array $selectors = [], array $parameters = [], array $conditions = [], array $optional = []) : array;
@@ -52,8 +50,7 @@ interface CRUDInterface
      * Update method which update 1 or more rows of data within the storage's table
      *
      * @param string $pk
-     * @param array $fields = []
-     *
+     * @param array $fields
      * @return bool
      */
     public function update(string $pk, array $fields = []) : bool;
@@ -62,7 +59,6 @@ interface CRUDInterface
      * Delete method which will permanently delete a row from the storage table
      *
      * @param array $conditions = []
-     *
      * @return bool
      */
     public function delete(array $conditions = []) : bool;
@@ -71,8 +67,7 @@ interface CRUDInterface
      * Search method which returns queried search results
      *
      * @param array $selectors
-     * @param array $conditions = []
-     *
+     * @param array $conditions
      * @return null|array
      */
     public function search(array $selectors, array $conditions = []) : ?array;
@@ -82,10 +77,9 @@ interface CRUDInterface
      * The second argument can assign and associate an array of conditions for
      * the query string
      *
-     * @param string $rawQUery
+     * @param string $raw
      * @param array|null $conditions
-     *
      * @return mixed
      */
-    public function rawQuery(string $rawQuery, ?array $conditions = []) : mixed;
+    public function raw(string $raw, ?array $conditions = []) : mixed;
 }

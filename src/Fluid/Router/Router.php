@@ -31,8 +31,13 @@ class Router implements RouterInterface
      */
     protected string $controllerSuffix = 'controller';
 
+
     /**
      * @inheritDoc
+     *
+     * @param string $route
+     * @param array $params
+     * @return void
      */
     public function add(string $route, array $params = []) : void
     {
@@ -41,6 +46,9 @@ class Router implements RouterInterface
 
     /**
      * @inheritDoc
+     *
+     * @param string $url
+     * @return void
      */
     public function dispatch(string $url): void
     {
@@ -72,8 +80,7 @@ class Router implements RouterInterface
      * setting the $this->params property if a route is found
      *
      * @param string $url
-     *
-     * @return bool
+     * @return boolean
      */
     private function matchRoute(string $url) : bool
     {
@@ -96,7 +103,6 @@ class Router implements RouterInterface
      * Example: MyCustomString
      *
      * @param string $string
-     *
      * @return string
      */
     public function transformUpperCamelCase(string $string) : string
@@ -109,7 +115,6 @@ class Router implements RouterInterface
      * Example: myCustomString
      *
      * @param string $string
-     *
      * @return string
      */
     public function transformCamelCase(string $string) : string
@@ -122,7 +127,6 @@ class Router implements RouterInterface
      * The namespace is defined within the route parameters only if added.
      *
      * @param string $string
-     *
      * @return string
      */
     public function getNameSpace(string $string): string

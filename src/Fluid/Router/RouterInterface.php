@@ -11,7 +11,6 @@ interface RouterInterface
      *
      * @param string $route
      * @param array $params
-     *
      * @return void
      */
     public function add(string $route, array $params) : void;
@@ -21,7 +20,6 @@ interface RouterInterface
      * method on that controller's object
      *
      * @param string $url
-     *
      * @return void
      */
     public function dispatch(string $url) : void;

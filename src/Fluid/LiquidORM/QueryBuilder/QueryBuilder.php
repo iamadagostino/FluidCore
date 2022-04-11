@@ -78,7 +78,7 @@ class QueryBuilder implements QueryBuilderInterface
     }
     
     /**
-     * Main construct class
+     * Main constructor method
      *
      * @return void
      */
