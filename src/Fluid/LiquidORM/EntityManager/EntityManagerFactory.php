@@ -6,7 +6,6 @@ namespace Fluid\LiquidORM\EntityManager;
 
 use Fluid\LiquidORM\DataMapper\DataMapperInterface;
 use Fluid\LiquidORM\QueryBuilder\QueryBuilderInterface;
-use Fluid\LiquidORM\EntityManager\EntityManagerInterface;
 use Fluid\LiquidORM\EntityManager\Exception\CRUDException;
 
 class EntityManagerFactory
@@ -42,13 +41,13 @@ class EntityManagerFactory
      *
      * @param string $crudString
      * @param string $tableSchema
-     * @param string $tablSchemaID
+     * @param string $tableSchemaID
      * @param array $options
      * @return EntityManagerInterface
      */
-    public function create(string $crudString, string $tableSchema, string $tablSchemaID, array $options = []) : EntityManagerInterface
+    public function create(string $crudString, string $tableSchema, string $tableSchemaID, array $options = []) : EntityManagerInterface
     {
-        $crudObject = new $crudString($this->dataMapper, $this->queryBuilder, $tableSchema, $tablSchemaID);
+        $crudObject = new $crudString($this->dataMapper, $this->queryBuilder, $tableSchema, $tableSchemaID, $options);
         if (!$crudObject instanceof CRUDInterface) {
             throw new CRUDException($crudString . 'is not a valid CRUD object.');
         }

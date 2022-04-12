@@ -8,13 +8,14 @@ use Fluid\LiquidORM\EntityManager\CRUDInterface;
 
 class EntityManager implements EntityManagerInterface
 {
-
-  /**
-   * @var CRUDInterface
-   */
-    protected CRUDInterface $crud;
     /**
-     * Main contructor class
+
+     * @var CRUDInterface
+     */
+    protected CRUDInterface $crud;
+    
+    /**
+     * Main contructor method.
      *
      * @return void
      */
@@ -23,8 +24,11 @@ class EntityManager implements EntityManagerInterface
         $this->crud = $crud;
     }
 
+
     /**
      * @inheritDoc
+     *
+     * @return object
      */
     public function getCRUD(): object
     {

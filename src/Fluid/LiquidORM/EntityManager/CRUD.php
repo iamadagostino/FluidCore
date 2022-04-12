@@ -31,6 +31,11 @@ class CRUD implements CRUDInterface
     protected string $tableSchemaID;
 
     /**
+     * @var array
+     */
+    protected array $options;
+
+    /**
      * Main constructor method
      *
      * @param DataMapper $dataMapper
@@ -42,12 +47,14 @@ class CRUD implements CRUDInterface
         DataMapper $dataMapper,
         QueryBuilder $queryBuilder,
         string $tableSchema,
-        string $tableSchemaID
+        string $tableSchemaID,
+        ?array $options = []
     ) {
         $this->dataMapper = $dataMapper;
         $this->queryBuilder = $queryBuilder;
         $this->tableSchema = $tableSchema;
         $this->tableSchemaID = $tableSchemaID;
+        $this->options = $options;
     }
 
     /**
@@ -57,7 +64,7 @@ class CRUD implements CRUDInterface
      */
     public function getSchema(): string
     {
-        return $this->tableSchema;
+        return (string)$this->tableSchema;
     }
 
     /**
@@ -67,7 +74,7 @@ class CRUD implements CRUDInterface
      */
     public function getSchemaID() : string
     {
-        return $this->tableSchemaID;
+        return (string)$this->tableSchemaID;
     }
 
 
@@ -78,7 +85,7 @@ class CRUD implements CRUDInterface
      */
     public function lastID(): int
     {
-        return $this->dataMapper->getLastID();
+        return (int)$this->dataMapper->getLastID();
     }
 
 

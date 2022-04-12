@@ -7,28 +7,28 @@ namespace Fluid\LiquidORM\EntityManager;
 interface CRUDInterface
 {
     /**
-     * Returns the storage schema's name as string
+     * Returns the storage schema's name as string.
      *
      * @return string
      */
     public function getSchema() : string;
 
     /**
-     * Returns the primary key for the storage's schema
+     * Returns the primary key for the storage's schema.
      *
      * @return string
      */
     public function getSchemaID() : string;
 
     /**
-     * Returns the l;ast inserted ID
+     * Returns the last inserted ID.
      *
      * @return int
      */
     public function lastID() : int;
 
     /**
-     * Create method which inserts data within a storage table
+     * Create method which inserts data within a storage table.
      *
      * @param array $fields
      * @return bool
@@ -36,7 +36,7 @@ interface CRUDInterface
     public function create(array $fields = []) : bool;
 
     /**
-     * Returns an array of DB's rows based on the individual supplied arguments
+     * Returns an array of DB's rows based on the individual supplied arguments.
      *
      * @param array $selectors
      * @param array $paramenters
@@ -47,7 +47,7 @@ interface CRUDInterface
     public function read(array $selectors = [], array $parameters = [], array $conditions = [], array $optional = []) : array;
 
     /**
-     * Update method which update 1 or more rows of data within the storage's table
+     * Update method which update 1 or more rows of data within the storage's table.
      *
      * @param string $pk
      * @param array $fields
@@ -56,7 +56,7 @@ interface CRUDInterface
     public function update(string $pk, array $fields = []) : bool;
 
     /**
-     * Delete method which will permanently delete a row from the storage table
+     * Delete method which will permanently delete a row from the storage table.
      *
      * @param array $conditions = []
      * @return bool
@@ -64,7 +64,7 @@ interface CRUDInterface
     public function delete(array $conditions = []) : bool;
 
     /**
-     * Search method which returns queried search results
+     * Search method which returns queried search results.
      *
      * @param array $selectors
      * @param array $conditions
@@ -73,9 +73,8 @@ interface CRUDInterface
     public function search(array $selectors, array $conditions = []) : ?array;
 
     /**
-     * Returns a custom query string.
-     * The second argument can assign and associate an array of conditions for
-     * the query string
+     * Returns a custom query string. The second argument can assign and
+     * associate an array of conditions for the query string.
      *
      * @param string $raw
      * @param array|null $conditions
