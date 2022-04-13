@@ -10,7 +10,7 @@ use Fluid\LiquidORM\DataMapper\Exception\DataMapperException;
 class DataMapperFactory
 {
     /**
-     * Main construct class
+     * Main constructor method
      *
      * @return void
      */
@@ -18,6 +18,17 @@ class DataMapperFactory
     {
     }
 
+    /**
+     * Creates the Data Mapper object and inject the dependency for this object.
+     * Also, creating the DatabaseConnection object.
+     * The $dataMapperEnvironmentConfiguration get instantiated in
+     * the DataRepositoryFactory.
+     *
+     * @param string $dbConnectionString
+     * @param string $dataMapperEnvironmentConfiguration
+     * @return DataMapperInterface
+     * @throws DataMapperException
+     */
     public function create(string $dbConnectionString, string $dataMapperEnvironmentConfiguration) : DataMapperInterface
     {
         $credentials = (new $dataMapperEnvironmentConfiguration([]))->getDatabaseCredentials('mysql');

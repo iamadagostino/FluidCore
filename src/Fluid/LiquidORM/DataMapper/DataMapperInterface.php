@@ -6,83 +6,78 @@ namespace Fluid\LiquidORM\DataMapper;
 interface DataMapperInterface
 {
     /**
-     * Prepare the SQL query string
+     * Prepare the SQL query string.
      *
      * @param string $query
-     *
      * @return static
      */
     public function prepare(string $query) : static;
 
     /**
-     * Explicit Data type for the parameter using the PDO::PARAM_* constants
+     * Explicit Data type for the parameter using the PDO::PARAM_* constants.
      *
      * @param mixed $value
-     *
      * @return mixed
      */
     public function bind(mixed $value) : mixed;
 
     /**
      * Method which combines both methods listed above, one of which optimized
-     * for binding search querie, once the second argument $type is set
+     * for binding search querie, once the second argument $type is set.
      *
      * @param array $fields
-     * @param bool $isSearch
-     *
+     * @param boolean $isSearch
      * @return self
      */
     public function bindParameters(array $fields, bool $isSearch = false) : self;
 
     /**
-     * Returns the # of rows affected by a DELETE, INSERT or UPDATE statement
+     * Returns the # of rows affected by a DELETE, INSERT or UPDATE statement.
      *
-     * @return int
+     * @return integer
      */
     public function rowsCount() : int;
 
     /**
-     * Execute method which will execute the prepared method
+     * Execute method which will execute the prepared method.
      *
-     * @return void
+     * @return bool
      */
-    public function execute() : mixed;
+    public function execute() : bool;
 
     /**
-     * Returns a single DB's row as an object
+     * Returns a single DB's row as an object.
      *
      * @return object
      */
     public function result() : object;
 
     /**
-     * Returns all the rows within the DB as an array
+     * Returns all the rows within the DB as an array.
      *
      * @return array
      */
     public function results() : array;
 
     /**
-     * Returns a DB's column
+     * Returns a DB's column.
      *
      * @return mixed
      */
-    // public function column() : mixed;
+    //  public function column() : mixed;
 
     /**
-     * Returns the last inserted row ID from the DB's table
+     * Returns the last inserted row ID from the DB's table.
      *
-     * @return int
-     *
+     * @return integer
      * @throws Throwable
      */
     public function getLastID() : int;
 
     /**
-     * Returns the query parameters and conditions
+     * Returns the query parameters and conditions.
      *
      * @return mixed
-     *
      * @throws Throwable
      */
     // public function buildQueryParameters() : mixed;

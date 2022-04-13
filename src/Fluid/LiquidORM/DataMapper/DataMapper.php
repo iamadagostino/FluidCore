@@ -22,8 +22,11 @@ class DataMapper implements DataMapperInterface
      */
     private PDOStatement $stmt;
 
+
     /**
-     * Main constructor method
+     * Main constructor method.
+     *
+     * @param DatabaseConnectionInterface $dbh
      */
     public function __construct(DatabaseConnectionInterface $dbh)
     {
@@ -31,13 +34,11 @@ class DataMapper implements DataMapperInterface
     }
 
     /**
-     * Checks if the incoming $value isn't empty else throws an exception
+     * Checks if the incoming $value isn't empty else throws an exception.
      *
      * @param mixed $value
      * @param string|null $errorMessage
-     *
      * @return void
-     *
      * @throws DataMapperException
      */
     private function isEmpty(mixed $value, string $errorMessage = null) : void
@@ -48,13 +49,11 @@ class DataMapper implements DataMapperInterface
     }
 
     /**
-     * Checks if the incoming $value is ana array else throws an exception
+     * Checks if the incoming $value is ana array else throws an exception.
      *
      * @param mixed $value
      * @param string|null $errorMessage
-     *
      * @return void
-     *
      * @throws DataMapperException
      */
     private function isArray(mixed $value, string $errorMessage = null) : void
@@ -66,6 +65,9 @@ class DataMapper implements DataMapperInterface
 
     /**
      * @inheritDoc
+     *
+     * @param string $query
+     * @return static
      */
     public function prepare(string $query) : static
     {
@@ -76,6 +78,9 @@ class DataMapper implements DataMapperInterface
 
     /**
      * @inheritDoc
+     *
+     * @param mixed $value
+     * @return mixed
      */
     public function bind(mixed $value): mixed
     {
@@ -101,6 +106,10 @@ class DataMapper implements DataMapperInterface
 
     /**
      * @inheritDoc
+     *
+     * @param array $fields
+     * @param boolean $isSearch
+     * @return self
      */
     public function bindParameters(array $fields, bool $isSearch = false) : self
     {
@@ -117,12 +126,10 @@ class DataMapper implements DataMapperInterface
 
     /**
      * Binds a value to a corresponding name or question mark placeholder
-     * in the SQL statement that was used to prepare the statement
+     * in the SQL statement that was used to prepare the statement.
      *
      * @param array $fields
-     *
      * @return PDOStatement
-     *
      * @throws DataMapperException
      */
     protected function bindValues(array $fields) : PDOStatement
@@ -137,13 +144,10 @@ class DataMapper implements DataMapperInterface
     }
 
     /**
-     * Similar to bindValues function above but optimized for searh queries
+     * Similar to bindValues function above but optimized for searh queries.
      *
-     * @param $fields
-     *
+     * @param array $fields
      * @return PDOStatement
-     *
-     * @throws DataMapperException
      */
     protected function bindSearchValues(array $fields) : PDOStatement
     {
@@ -156,10 +160,13 @@ class DataMapper implements DataMapperInterface
         return $this->stmt;
     }
 
+
     /**
      * @inheritDoc
+     *
+     * @return bool
      */
-    public function execute(): mixed
+    public function execute(): bool
     {
         if ($this->stmt) {
             return $this->stmt->execute();
@@ -168,6 +175,8 @@ class DataMapper implements DataMapperInterface
 
     /**
      * @inheritDoc
+     *
+     * @return integer
      */
     public function rowsCount(): int
     {
@@ -178,6 +187,8 @@ class DataMapper implements DataMapperInterface
 
     /**
      * @inheritDoc
+     *
+     * @return object
      */
     public function result(): object
     {
@@ -188,6 +199,8 @@ class DataMapper implements DataMapperInterface
 
     /**
      * @inheritDoc
+     *
+     * @return array
      */
     public function results(): array
     {
@@ -199,6 +212,7 @@ class DataMapper implements DataMapperInterface
     /**
      * @inheritDoc
      *
+     * @return integer
      * @throws Throwable
      */
     public function getLastID(): int
@@ -216,11 +230,10 @@ class DataMapper implements DataMapperInterface
     }
 
     /**
-     * Returns the query conditions merged with the query paramaters
+     * Returns the query conditions merged with the query paramaters.
      *
-     * @param array $conditions = []
-     * @param array $parameters = []
-     *
+     * @param array $conditions
+     * @param array $parameters
      * @return array
      */
     public function buildQueryParameters(array $conditions = [], array $parameters = []) : array
@@ -229,13 +242,10 @@ class DataMapper implements DataMapperInterface
     }
 
     /**
-     * Persist queries to DB
-     *
+     * Persist queries to DB.
      * @param string $query
      * @param array $parameters
-     *
      * @return mixed
-     *
      * @throws Throwable
      */
     public function persist(string $query, array $parameters) : mixed

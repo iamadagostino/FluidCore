@@ -10,13 +10,28 @@ use Throwable;
 
 class DataRepository implements DataRepositoryInterface
 {
+    /**
+     * @var EntityManagerInterface
+     */
     protected EntityManagerInterface $em;
 
+    /**
+     * Main constructor method.
+     *
+     * @param EntityManagerInterface $em
+     */
     public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }
 
+    /**
+     * Checks whether the arguement is of the array type else throw an exception.
+     *
+     * @param array $conditions
+     * @return void
+     * @throws DataRepositoryInvalidArgumentException
+     */
     private function isArray(array $conditions) : void
     {
         if (!is_array($conditions)) {
@@ -24,6 +39,13 @@ class DataRepository implements DataRepositoryInterface
         }
     }
 
+    /**
+     * Checks whether the argument is set else throw an exception
+     *
+     * @param integer $id
+     * @return void
+     * @throws DataRepositoryInvalidArgumentException
+     */
     private function isEmpty(int $id) : void
     {
         if (empty($id)) {
@@ -31,6 +53,13 @@ class DataRepository implements DataRepositoryInterface
         }
     }
 
+    /**
+     * @inheritDoc
+     *
+     * @param integer $id
+     * @return array
+     * @throws Throwable
+     */
     public function find(int $id): array
     {
         $this->isEmpty($id);
@@ -42,6 +71,13 @@ class DataRepository implements DataRepositoryInterface
         }
     }
 
+    /**
+     * @inheritDoc
+     *
+     * @param array $conditions
+     * @return array
+     * @throws Throwable
+     */
     public function findOneBy(array $conditions): array
     {
         $this->isArray($conditions);
@@ -53,6 +89,12 @@ class DataRepository implements DataRepositoryInterface
         }
     }
 
+    /**
+     * @inheritDoc
+     *
+     * @return array
+     * @throws Throwable
+     */
     public function findAll(): array
     {
         try {
@@ -62,6 +104,16 @@ class DataRepository implements DataRepositoryInterface
         }
     }
 
+    /**
+     * @inheritDoc
+     *
+     * @param array $selectors
+     * @param array $conditions
+     * @param array $parameters
+     * @param array $optional
+     * @return array
+     * @throws Throwable
+     */
     public function findBy(array $selectors = [], array $conditions = [], array $parameters = [], array $optional = []): array
     {
         $this->isArray($conditions);
@@ -73,11 +125,28 @@ class DataRepository implements DataRepositoryInterface
         }
     }
 
+    /**
+     * @inheritDoc
+     *
+     * @param array $conditions
+     * @param array $selectors
+     * @return object
+     */
     public function findObjectBy(array $conditions = [], array $selectors = []): object
     {
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     *
+     * @param array $selectors
+     * @param array $conditions
+     * @param array $parameters
+     * @param array $optional
+     * @return array
+     * @throws Throwable
+     */
     public function findBySearch(array $selectors = [], array $conditions = [], array $parameters = [], array $optional = []): array
     {
         $this->isArray($conditions);
@@ -89,6 +158,13 @@ class DataRepository implements DataRepositoryInterface
         }
     }
 
+    /**
+     * @inheritDoc
+     *
+     * @param array $conditions
+     * @return boolean
+     * @throws Throwable
+     */
     public function findByIDandDelete(array $conditions): bool
     {
         $this->isArray($conditions);
@@ -108,6 +184,14 @@ class DataRepository implements DataRepositoryInterface
         }
     }
 
+    /**
+     * @inheritDoc
+     *
+     * @param integer $id
+     * @param array $fields
+     * @return boolean
+     * @throws Throwable
+     */
     public function findByIDandUpdate(int $id, array $fields = []): bool
     {
         $this->isArray($fields);
@@ -128,7 +212,15 @@ class DataRepository implements DataRepositoryInterface
         }
     }
 
-    public function findWithSearchAndPaging(array $arguments, object $request): array
+    /**
+     * @inheritDoc
+     *
+     * @param array $arguments
+     * @param object $request
+     * @return array
+     * @throws Throwable
+     */
+    public function findWithSearchAndPaging(object $request, array $args = []) : array
     {
         return [];
     }
@@ -136,5 +228,15 @@ class DataRepository implements DataRepositoryInterface
     public function findAndReturn(int $id, array $selectors = []): DataRepositoryInterface
     {
         return $this;
+    }
+
+    /**
+     * @inheritDoc
+     *
+     * @return object|null
+     */
+    public function or404(): ?object
+    {
+        return null;
     }
 }

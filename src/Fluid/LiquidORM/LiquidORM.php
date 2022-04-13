@@ -14,14 +14,34 @@ use Fluid\LiquidORM\DataMapper\DataMapperEnvironmentConfiguration;
 
 class LiquidORM
 {
+    /**
+     * @var string
+     */
     protected string $tableSchema;
 
+    /**
+     * @var string
+     */
     protected string $tableSchemaID;
 
+    /**
+     * @var array
+     */
     protected array $options;
 
+    /**
+     * @var DataMapperEnvironmentConfiguration
+     */
     protected DataMapperEnvironmentConfiguration $environment;
 
+    /**
+     * Main constructor method.
+     *
+     * @param DataMapperEnvironmentConfiguration $dataMapperEnvironmentConfiguration
+     * @param string $tableSchema
+     * @param string $tableSchemaID
+     * @param array|null $options
+     */
     public function __construct(DataMapperEnvironmentConfiguration $dataMapperEnvironmentConfiguration, string $tableSchema, string $tableSchemaID, ?array $options = [])
     {
         $this->dataMapperEnvironmentConfiguration = $dataMapperEnvironmentConfiguration;
@@ -30,7 +50,13 @@ class LiquidORM
         $this->options = $options;
     }
 
-    public function initialize()
+    /**
+     * Initialize method which glues all the components together and injects
+     * the necessary dependency within the respective object.
+     *
+     * @return object
+     */
+    public function initialize() : object
     {
         $dataMapperFactory = new DataMapperFactory();
         $dataMapper = $dataMapperFactory->create(DatabaseConnection::class, DatabaMapperEnvironmentConfiguration::class);
